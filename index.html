@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-DsT3TohYP0UDkpjKTAMHzJadTwaknuhT5oX3aiJfQAF9qI2/SxYYaK+miSRY2h4tAtalIUDW8iEujQvjEQrXXw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+      :root{--header-height: 3rem;--nav-width: 68px;--first-color:#9370db;--first-color-light: #AFA5D9;--white-color: #F7F6FB;--body-font: 'Nunito', sans-serif;--normal-font-size: 1rem;--z-fixed: 100}
+      *,::before,::after{box-sizing: border-box}
+      body{position: relative;margin: var(--header-height) 0 0 0;padding: 0 1rem;font-family: var(--body-font);font-size: var(--normal-font-size);transition: .5s}
+      a{text-decoration: none}
+      .header{width: 100%;height: var(--header-height);position: fixed;top: 0;left: 0;display: flex;align-items: center;justify-content: space-between;padding: 0 1rem;background-color: var(--white-color);z-index: var(--z-fixed);transition: .5s}
+      .header_toggle{color: var(--first-color);font-size: 1.5rem;cursor: pointer}
+      .header_img{width: 35px;height: 35px;display: flex;justify-content: center;border-radius: 50%;overflow: hidden}
+      .header_img img{width: 40px}
+      .l-navbar{position: fixed;top: 0;left: -30%;width: var(--nav-width);height: 100vh;background-color: var(--first-color);padding: .5rem 1rem 0 0;transition: .5s;z-index: var(--z-fixed)}
+      .nav{height: 100%;display: flex;flex-direction: column;justify-content: space-between;overflow: hidden}
+      .nav_logo, .nav_link{display: grid;grid-template-columns: max-content max-content;align-items: center;column-gap: 1rem;padding: .5rem 0 .5rem 1.5rem}
+      .nav_logo{margin-bottom: 2rem}
+      .nav_logo-icon{font-size: 1.25rem;color: var(--white-color)}
+      .nav_logo-name{color: var(--white-color);font-weight: 700}
+      .nav_link{position: relative;color: var(--first-color-light);margin-bottom: 1.5rem;transition: .3s}
+      .nav_link:hover{color: var(--white-color)}
+      .nav_icon{font-size: 1.25rem}
+      .show{left: 0}
+      .body-pd{padding-left: calc(var(--nav-width) + 1rem)}
+      .active{color: var(--white-color)}
+      .active::before{content: '';position: absolute;left: 0;width: 2px;height: 32px;background-color: var(--white-color)}
+      .height-100{height:100vh}
+      @media screen and (min-width: 768px){body{margin: calc(var(--header-height) + 1rem) 0 0 0;padding-left: calc(var(--nav-width) + 2rem)}
+      .header{height: calc(var(--header-height) + 1rem);padding: 0 2rem 0 calc(var(--nav-width) + 2rem)}
+      .header_img{width: 40px;height: 40px}
+      .header_img img{width: 45px}.l-navbar{left: 0;padding: 1rem 1rem 0 0}
+      .show{width: calc(var(--nav-width) + 156px)}
+      .body-pd{padding-left: calc(var(--nav-width) + 188px)}}
+        .round {
+  border-radius: 25px;
+  background:pink;
+
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.container {
+      display: flex;
+      justify-content: flex-start;
+    }
+canvas {
+      max-width: 800px;
+      max-height: 500px;
+
+    }
+.chart {
+      height: 300px;
+      width: 500px;
+}
+
+#formContainer,#fContainer {
+  width: 500px; /* Adjust the width as per your needs */
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input,
+form select {
+  width: 70%;
+  padding: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  /*justify-content: space-between;*/
+}
+
+.col {
+  flex: 1;
+  margin-right: 5px;
+}
+
+/* CSS */
+.button-89 {
+  --b: 3px;   /* border thickness */
+  --s: .45em; /* size of the corner */
+  --color: #373B44;
+  
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-89:hover,
+.button-89:focus-visible{
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.button-89:active {
+  background: var(--color);
+  color: #fff;
+}
+fieldset.scheduler-border {
+    border: 1px groove black !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+</style>
+</head>
+<body id="body-pd">
+  <header class="header" id="header">
+    <div class="header_toggle">
+      <i class="bi bi-list" id="header-toggle"></i>
+    </div>
+    <div class="notification">
+      <i class="bi bi-bell" style="margin-left: 950px;"></i>
+    </div>
+    <div class="user-profile" style="display: flex; align-items: center;">
+      <p  style="margin-right: 10px;">Admin Profile</p>
+      <img src="http://pixelwibes.com/template/my-task/html/dist/assets/images/lg/avatar3.jpg"  width="30px"height="30px"alt="Avatar" class="avatar" />
+    </div>
+  </header>
+  
+       
+  <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="#" class="nav_logo">
+              <i class='bi bi-layers nav_logo-icon'></i>
+              <span class="nav_logo-name"></span>
+          </a>
+          <div class="nav_list">
+              <a href="./index.html" class="nav_link active">
+                  <i class='bi bi-grid nav_icon'></i>
+                  <span class="nav_name">Dashboard</span>
+              </a>
+             
+              <a href="./project.html" class="nav_link">
+                  <i class='bi bi-folder nav_icon'></i>
+                  <span class="nav_name">Project</span>
+              </a>
+              <a href="./task.html" class="nav_link">
+                  <i class='bi bi-bar-chart nav_icon'></i>
+                  <span class="nav_name">Task</span>
+              </a>
+          </div>
+      
+      <a href="./login.html" class="nav_link">
+          <i class='bi bi-box-arrow-left nav_icon'></i>
+          <span class="nav_name">Sign Out</span>
+      </a>
+      </nav></div>
+  </div>
+  <!--Container Main start-->
+  <div class="height-900 bg-light">
+      <div class="row">
+    <div class="col"><div class="container" >
+      <canvas id="availabilityChart"></canvas></div></div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5">
+                <h5 class="card-title"><b>Dylan Hunter</b></h5>
+                <p class="card-text">Welcome back Dylan Hunter.Integer molestie, arcu non porta sollicitudin, arcu felis aliquam urna, placerat maximus lorem urna commodo sem. Pellentesque venenatis leo quam, sed mattis sapien lobortis ut.placerat maximus lorem urna commodo sem</p>
+              <button type="sumbit" class="btn btn-primary">Free Inquire</button>
+              </div>
+              <div class="col-md-6">
+                <img src="http://pixelwibes.com/template/my-task/html/dist/assets/images/task-view.svg" class="img-fluid" alt="Your Image">
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+      </div>
+  <br>
+  <!--box-->
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-2">
+      <table border="2" bordercolor="gray" width="350" height="300" style="background-color:#EDEDFB;">
+        <th>Employees Availability</th>
+        <tr>
+          <td style="padding: 15px;">
+            <table border="2" bordercolor="gray" width="120" height="50" style="padding: 5px;">
+              <tr>
+                <td style="padding: 5px;"><i class="bi bi-check-circle-fill"></i><br>Attendance<br><span class="text-muted">400</span></td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table border="2" bordercolor="gray" width="120" height="50" style="padding: 5px;">
+              <tr>
+                <td style="padding: 5px;"><i class="bi bi-stopwatch-fill"></i><br>Late Coming<br><span class="text-muted">400</span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 15px;">
+            <table border="2" bordercolor="gray" width="120" height="50" style="padding: 5px;">
+              <tr>
+                <td style="padding: 5px;"><i class="bi bi-calendar-x-fill"></i><br>Absent<br><span class="text-muted">400</span></td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table border="2" bordercolor="gray" width="120" height="50" style="padding: 5px;">
+              <tr>
+                <td style="padding: 5px;"><i class="bi bi-file-earmark-plus-fill"></i><br>Leave Apply<br><span class="text-muted">400</span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      
+</div>      
+    <div class="col-md-4 mb-2">
+    <table border="2"  bordercolor="gray" width="300" height="300" style="background-color:ghostwhite";>
+    <th>Total Employees &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;460</th>
+    <tr>
+        <td><div id="apexcharts-doughnut"></div></td>
+    </tr>
+    </table></div></div><br>
+    <div class="card " style="width: 60rem;  margin-left: 90px;">
+        <div class="card-header"><b>Top Hiring Sources</b></div>
+    <div id="apexcharts-bar"></div></div>
+    <br>
+    <!--form-->
+    <button class=" button-89" id="showFormButton" style=" margin-left: 370px;">Create Project</button>
+    <button class=" button-89" id="shFormButton" style=" margin-left: 90px;">Create Task</button><br><br>
+    <div id="formContainer" style="display: none;">
+        <!-- Form content goes here -->
+        
+        <form name="f" action="http://localhost:3000" method="post" onsubmit="valid()">
+          <fieldset class="scheduler-border">
+            <h5><b>Create Project</b></h5>
+          <div class="mb-3">
+            <label for="project-name">Project Name</label>
+            <input type="text" name="project-name" id="project-name" placeholder="Explain what the Project Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="project-category">Project Category</label>
+            <select name="project-category" id="project-category" required>
+              <option value="category1">Category 1</option>
+              <option value="category2">Category 2</option>
+              <option value="category3">Category 3</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="project-images">Project Images & Documents</label>
+            <input type="file" name="project-images" id="project-images" multiple>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="project-start-date">Project Start Date</label>
+              <input type="date" name="project-start-date" id="project-start-date" required>
+            </div>
+            <div class="col">
+              <label for="project-end-date">Project End Date</label>
+              <input type="date" name="project-end-date" id="project-end-date" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="notification-sent">Notification Sent</label>
+            <select name="notification-sent" id="notification-sent" required>
+              <option value="yes">All</option>
+              <option value="no">Team Leader Only</option>
+              <option value="no">Team Member Only</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="task-assign-person">Task Assign Person</label>
+              <select name="task-assign-person" id="task-assign-person" multiple>
+                <option value="person1">Person 1</option>
+                <option value="person2">Person 2</option>
+                <option value="person3">Person 3</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col">
+              <label for="budget">Budget</label>
+              <input type="number" name="budget" id="budget" required>
+            </div>
+            <div class="col">
+              <label for="priority">Priority</label>
+              <select name="priority" id="priority" required>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div></div>
+            Description (optional)
+            
+      <textarea name="project-description" id="project-description" placeholder="Add any extra details about the request" rows="4" style="width: 70%;"required></textarea>
+      <br><br><button type="submit" class="btn btn-secondary" onclick="clForm()">Close</button>
+          <button type="submit" class="btn btn-primary">Create &rarr;</button>
+        </fieldset></form>
+    </div>
+    <!--create task-->
+    <div id="fContainer" style="display: none;">
+      <form name="f2" action="http://localhost:3000" method="post" onsubmit="valid()">
+        <!-- Form content goes here -->
+          <fieldset class="scheduler-border">
+            <h5><b>Create Task</b></h5>
+          <div class="mb-3">
+            <label for="project-name">Task Name</label>
+            <select name="project-category" id="project-category" required>
+              <option value="category1">Task 1</option>
+              <option value="category2">Task 2</option>
+              <option value="category3">Task 3</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="project-category">Task Category</label>
+            <select name="project-category" id="project-category" required>
+              <option value="category1">Category 1</option>
+              <option value="category2">Category 2</option>
+              <option value="category3">Category 3</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="project-images">Task Images & Documents</label>
+            <input type="file" name="project-images" id="project-images" multiple>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="project-start-date">Task Start Date</label>
+              <input type="date" name="project-start-date" id="project-start-date" required>
+            </div>
+            <div class="col">
+              <label for="project-end-date">Task End Date</label>
+              <input type="date" name="project-end-date" id="project-end-date" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="notification-sent">Notification Sent</label>
+            <select name="notification-sent" id="notification-sent" required>
+              <option value="yes">All</option>
+              <option value="no">Team Leader Only</option>
+              <option value="no">Team Member Only</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="task-assign-person">Task Assign Person</label>
+              <select name="task-assign-person" id="task-assign-person" multiple>
+                <option value="person1">Person 1</option>
+                <option value="person2">Person 2</option>
+                <option value="person3">Person 3</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col">
+              <label for="budget">Budget</label>
+              <input type="number" name="budget" id="budget" required>
+            </div>
+            <div class="col">
+              <label for="priority">Priority</label>
+              <select name="priority" id="priority" required>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div></div>
+            Description (optional)
+            
+      <textarea name="project-description" id="project-description" placeholder="Add any extra details about the request" rows="4" style="width: 70%;"required></textarea>
+      <br><br><button type="submit" class="btn btn-secondary" onclick="closeForm()">Close</button>
+          <button type="submit" class="btn btn-primary" >Create &rarr;</button>
+          </fieldset></form></div>
+    <br>
+    <div class="card" style="background-color:#B0C4DE;">
+      <div class="card-header"><b>Top Perfrormers</b></div>
+      <p>&nbsp;You have 140 <b>influencers</b> in your company.</p>
+      <div class="row">
+        <div class="col d-flex justify-content-center"><img src="./t1.png" height="180" width="290"></div>
+        <div class="col d-flex justify-content-center"><img src="./t2.png" height="180" width="290"></div>
+        <div class="col d-flex justify-content-center"><img src="./t3.png" height="180" width="290"></div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col d-flex justify-content-center"><img src="./t4.png" height="180" width="290"></div>
+        <div class="col d-flex justify-content-center"><img src="./t5.png" height="180" width="290"></div>
+        <div class="col d-flex justify-content-center"><img src="./t2.png" height="180" width="290"></div>
+      </div>
+      <div class="row" style="margin-top: 20px;"></div>
+    </div>
+    </div>  
+  <script>
+   document.addEventListener("DOMContentLoaded", function(event) {
+   
+   const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+   const toggle = document.getElementById(toggleId),
+   nav = document.getElementById(navId),
+   bodypd = document.getElementById(bodyId),
+   headerpd = document.getElementById(headerId)
+   
+   // Validate that all variables exist
+   if(toggle && nav && bodypd && headerpd){
+   toggle.addEventListener('click', ()=>{
+   // show navbar
+   nav.classList.toggle('show')
+   // change icon
+   toggle.classList.toggle('bx-x')
+   // add padding to body
+   bodypd.classList.toggle('body-pd')
+   // add padding to header
+   headerpd.classList.toggle('body-pd')
+   })
+   }
+   }
+   
+   showNavbar('header-toggle','nav-bar','body-pd','header')
+   
+   /*===== LINK ACTIVE =====*/
+   const linkColor = document.querySelectorAll('.nav_link')
+   
+   function colorLink(){
+   if(linkColor){
+   linkColor.forEach(l=> l.classList.remove('active'))
+   this.classList.add('active')
+   }
+   }
+   linkColor.forEach(l=> l.addEventListener('click', colorLink))
+   
+    // Your code to run since DOM is loaded and ready
+   });
+  
+   //chart
+ 
+   const availabilityData = [
+  { month: 'Jan', availability: 8 },
+  { month: 'Feb', availability: 12 },
+  { month: 'Mar', availability: 7 },
+  { month: 'Apr', availability: 9 },
+  { month: 'May', availability: 11 },
+  { month: 'June', availability: 12 },
+  { month: 'July', availability: 13 },
+  { month: 'Aug', availability: 9 },
+  { month: 'Sept', availability: 11 },
+  { month: 'Oct', availability: 10 },
+  { month: 'Nov', availability: 9 },
+  { month: 'Dec', availability: 17 },
+  // Add more months and availability data here
+];
+
+// Create the chart
+const ctx = document.getElementById('availabilityChart').getContext('2d');
+const chart1 = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: availabilityData.map(data => data.month),
+    datasets: [{
+      label: 'Employee Info',
+      data: availabilityData.map(data => data.availability),
+      backgroundColor: ['#9370db'],
+      borderColor: ['#9370db'],
+      borderWidth: 2,
+      fill: 'start'
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        display: false, // Hide the y-axis numbers
+        grid: {
+          display: false // Hide the y-axis grid lines
+        },
+        beginAtZero: true,
+        max: 31, // Set the maximum value on the y-axis according to your data
+        stepSize: 5 // Set the step size on the y-axis according to your data
+      }
+    },
+   
+  }
+});
+
+    document.addEventListener("DOMContentLoaded", function() {
+  var options = {
+    chart: {
+      height: 400,
+      type: "donut",
+    },
+    colors: ["#1E90FF","#FF1493"],
+    dataLabels: {
+      enabled: false
+    },
+    series: [44, 55],
+    labels: ["Men", "Women"], 
+  };
+
+  var chart = new ApexCharts(
+    document.querySelector("#apexcharts-doughnut"),
+    options
+  );
+
+  chart.render();
+});
+var options = {
+  chart: {
+    width:900,
+    height: 350,
+    type: "bar",
+    stacked: true,
+    toolbar: {
+      show: false // Set show to false to hide the toolbar
+    }
+  },
+  dataLabels: {
+      enabled: false
+    },
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      barWidth: "10%",
+    },
+  },
+  stroke: {
+    width: 1,
+    colors: ["#fff"]
+  },
+  series: [{
+    name: "Ui/Ux Designer",
+    data: [14, 15, 21, 17, 22, 13, 18, 12, 11, 22, 15, 12]
+  }, {
+    name: "App Development",
+    data: [15, 12, 18, 10, 13, 14, 12, 11, 22, 33, 11, 9]
+  }, {
+    name: "Quality Assurance",
+    data: [12, 17, 11, 9, 15, 11, 20, 3, 11, 22, 12, 11]
+  }, {
+    name: "Web Developer",
+    data: [9, 7, 15, 8, 16, 9, 14, 14, 8, 9, 12, 11]
+  }],
+  xaxis: {
+    categories: ["Jan", "Feb", "March", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: {
+      formatter: function(val) {
+        return val 
+      }
+    }
+  },
+  yaxis: {
+    title: {
+      text: undefined
+    },
+  },
+  tooltip: {
+    y: {
+      formatter: function(val) {
+        return val
+      }
+    }
+  },
+  fill: {
+    opacity: 1
+  },
+  legend: {
+    position: "top",
+    horizontalAlign: "left",
+    offsetX: 40,
+    showForSingleSeries: false,
+  }
+};
+
+var chart = new ApexCharts(
+  document.querySelector("#apexcharts-bar"),
+  options
+);
+
+chart.render();
+    
+  //form
+  const showFormButton = document.getElementById('showFormButton');
+const formContainer = document.getElementById('formContainer');
+
+showFormButton.addEventListener('click', function() {
+  formContainer.style.display = 'block';
+});
+const shFormButton = document.getElementById('shFormButton');
+const fContainer = document.getElementById('fContainer');
+
+shFormButton.addEventListener('click', function() {
+  fContainer.style.display = 'block';
+});
+function clForm() {
+    document.getElementById('fContainer').style.display = 'none';
+  }    
+  function closeForm() {
+    document.getElementById('formContainer').style.display = 'none';
+  } 
+  </script> 
+</body>
+</html>
